@@ -1,0 +1,4 @@
+interface:
+  display_name: "Room Dashboard"
+  short_description: "Update house-hunting room dashboards"
+  default_prompt: "Use $room-dashboard to update the house-hunting room dashboards."
