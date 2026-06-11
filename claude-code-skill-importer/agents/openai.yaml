@@ -1,0 +1,4 @@
+interface:
+  display_name: "Claude Code Skill Importer"
+  short_description: "Claude CodeスキルをCodexへ移植"
+  default_prompt: "Use $claude-code-skill-importer to compare Claude Code skills with Codex skills, then import the selected ones."

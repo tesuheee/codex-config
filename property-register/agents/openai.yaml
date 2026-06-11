@@ -1,0 +1,4 @@
+interface:
+  display_name: "Property Register"
+  short_description: "Register and sync house-hunting property notes"
+  default_prompt: "Use $property-register to register this rental property into the house-hunting vault."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "note Draft"
+  short_description: "note.com投稿用の下書きとコピペ用HTMLを作成する。"
+  default_prompt: "Use $note-draft to draft a note.com post and open the copy-ready HTML."
