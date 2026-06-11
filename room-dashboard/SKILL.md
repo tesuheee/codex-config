@@ -26,11 +26,11 @@ Key files:
 - `50_運用ツール/不動産アーカイブ部屋候補HTML生成.py`
 - `50_運用ツール/部屋候補設定.json`
 - `50_運用ツール/物件評価.json`
-- `50_運用ツール/生成結果/部屋別予算内候補一覧.html`
-- `50_運用ツール/生成結果/部屋別予算内候補一覧_data.json`
-- `50_運用ツール/生成結果/不動産アーカイブ部屋候補一覧.html`
-- `50_運用ツール/生成結果/不動産アーカイブ部屋候補一覧_data.json`
-- `50_運用ツール/生成結果/不動産アーカイブ部屋候補一覧_signal_snapshot.json`
+- `20_比較表/生成結果/部屋別予算内候補一覧.html`
+- `20_比較表/生成結果/部屋別予算内候補一覧_data.json`
+- `20_比較表/生成結果/不動産アーカイブ部屋候補一覧.html`
+- `20_比較表/生成結果/不動産アーカイブ部屋候補一覧_data.json`
+- `20_比較表/生成結果/不動産アーカイブ部屋候補一覧_signal_snapshot.json`
 
 ## Update Workflow
 
@@ -89,8 +89,8 @@ Do not infer ratings from conversation unless the user states exact property nam
 
 After generation, tell the user to open:
 
-- Windows: `C:\Users\nedie\Obsidian\■家関係\50_運用ツール\生成結果\不動産アーカイブ部屋候補一覧.html`
-- Mac: `/Users/sugi/obsidian/■家関係/50_運用ツール/生成結果/不動産アーカイブ部屋候補一覧.html`
+- Windows: `C:\Users\nedie\Obsidian\■家関係\20_比較表\生成結果\不動産アーカイブ部屋候補一覧.html`
+- Mac: `/Users/sugi/obsidian/■家関係/20_比較表/生成結果/不動産アーカイブ部屋候補一覧.html`
 
 If browser automation cannot open `file://`, report that limitation and provide the local path.
 
