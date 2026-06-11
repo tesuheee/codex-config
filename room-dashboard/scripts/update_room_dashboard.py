@@ -18,7 +18,7 @@ def find_vault(explicit: str | None) -> Path:
     candidates = [Path(explicit).expanduser()] if explicit else []
     candidates.extend(KNOWN_VAULTS)
     for candidate in candidates:
-        if (candidate / "50_運用ツール" / "部屋別候補一覧HTML生成.py").exists():
+        if (candidate / "50_運用ツール" / "手持ち物件シグナル生成.py").exists():
             return candidate
     checked = ", ".join(str(path) for path in candidates)
     raise SystemExit(f"vault not found; checked: {checked}")
@@ -65,7 +65,7 @@ def main() -> int:
     ns = parser.parse_args()
 
     vault = find_vault(ns.vault)
-    room = run_step(vault, ["50_運用ツール/部屋別候補一覧HTML生成.py"])
+    room = run_step(vault, ["50_運用ツール/手持ち物件シグナル生成.py"])
     archive_args = ["50_運用ツール/不動産アーカイブ部屋候補HTML生成.py"]
     if not ns.area_crawl:
         archive_args.append("--skip-area-crawl")

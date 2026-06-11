@@ -1,6 +1,6 @@
 ---
 name: room-dashboard
-description: Update and operate the user's Obsidian house-hunting room dashboards. Use when the user asks to refresh, generate, inspect, or explain the room candidate dashboards, the 部屋別予算内候補一覧, the 不動産アーカイブ部屋候補一覧, saved property ratings, first-seen signals, or the Mac/Windows daily dashboard workflow for C:\Users\nedie\Obsidian\■家関係 or /Users/sugi/obsidian/■家関係.
+description: Update and operate the user's Obsidian house-hunting room dashboard. Use when the user asks to refresh, generate, inspect, or explain the candidate dashboard, the 不動産アーカイブ部屋候補一覧, saved property ratings, hand-held property signals, first-seen signals, or the Mac/Windows daily dashboard workflow for C:\Users\nedie\Obsidian\■家関係 or /Users/sugi/obsidian/■家関係.
 ---
 
 # Room Dashboard
@@ -22,15 +22,15 @@ Work from the vault root. Do not assume the vault itself is a Git repository.
 
 Key files:
 
-- `50_運用ツール/部屋別候補一覧HTML生成.py`
+- `50_運用ツール/手持ち物件シグナル生成.py`
 - `50_運用ツール/不動産アーカイブ部屋候補HTML生成.py`
 - `50_運用ツール/部屋候補設定.json`
 - `50_運用ツール/物件評価.json`
-- `20_比較表/生成結果/部屋別予算内候補一覧.html`
-- `20_比較表/生成結果/部屋別予算内候補一覧_data.json`
-- `20_比較表/生成結果/不動産アーカイブ部屋候補一覧.html`
-- `20_比較表/生成結果/不動産アーカイブ部屋候補一覧_data.json`
-- `20_比較表/生成結果/不動産アーカイブ部屋候補一覧_signal_snapshot.json`
+- `25_候補ダッシュボード/手持ち物件シグナル_data.json`
+- `25_候補ダッシュボード/手持ち物件シグナル_snapshot.json`
+- `25_候補ダッシュボード/不動産アーカイブ部屋候補一覧.html`
+- `25_候補ダッシュボード/不動産アーカイブ部屋候補一覧_data.json`
+- `25_候補ダッシュボード/不動産アーカイブ部屋候補一覧_signal_snapshot.json`
 
 ## Update Workflow
 
@@ -40,7 +40,7 @@ For ordinary refresh requests, run the bundled helper:
 python scripts/update_room_dashboard.py
 ```
 
-The helper locates the vault, runs the部屋別 dashboard first, then runs the archive dashboard with `--skip-area-crawl`. This is the default because homes.co.jp can block repeated area crawling.
+The helper locates the vault, runs the hand-held property signal generator first, then runs the archive dashboard with `--skip-area-crawl`. This is the default because homes.co.jp can block repeated area crawling.
 
 If the user explicitly asks for a full web refresh, run:
 
@@ -55,7 +55,7 @@ Only use full refresh when the user understands it may access lifullhomes-index.
 If the helper is unsuitable, run these commands from the vault root:
 
 ```bash
-python3 50_運用ツール/部屋別候補一覧HTML生成.py
+python3 50_運用ツール/手持ち物件シグナル生成.py
 python3 50_運用ツール/不動産アーカイブ部屋候補HTML生成.py --skip-area-crawl
 ```
 
@@ -65,12 +65,12 @@ On Windows, use `python` if `python3` is unavailable.
 
 After updates, report the command outputs and the key counts:
 
-- 部屋別: `rows`, `active`, `newToday`
+- 手持ち物件シグナル: `rows`, `active`, `newToday`
 - アーカイブ: `buildings`, `rows`, `representatives`, `detectedToday`
 
 For same-day first-seen checks, run the archive update twice with `--skip-area-crawl` and confirm `detectedToday` is stable.
 
-Do not modify `20_比較表/`, `30_個別物件/`, or other live vault files for dashboard refresh requests unless the user asks for registration or synchronization work.
+Do not modify `20_比較表/*.md`, `30_個別物件/`, or other live vault files for dashboard refresh requests unless the user asks for registration or synchronization work.
 
 ## Ratings
 
@@ -89,8 +89,8 @@ Do not infer ratings from conversation unless the user states exact property nam
 
 After generation, tell the user to open:
 
-- Windows: `C:\Users\nedie\Obsidian\■家関係\20_比較表\生成結果\不動産アーカイブ部屋候補一覧.html`
-- Mac: `/Users/sugi/obsidian/■家関係/20_比較表/生成結果/不動産アーカイブ部屋候補一覧.html`
+- Windows: `C:\Users\nedie\Obsidian\■家関係\25_候補ダッシュボード\不動産アーカイブ部屋候補一覧.html`
+- Mac: `/Users/sugi/obsidian/■家関係/25_候補ダッシュボード/不動産アーカイブ部屋候補一覧.html`
 
 If browser automation cannot open `file://`, report that limitation and provide the local path.
 
