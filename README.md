@@ -27,27 +27,45 @@ Codex のユーザー定義 skill を管理するリポジトリです。
 
 ## セットアップ
 
-既存の Codex 環境を用意したうえで、このリポジトリ内の user skill フォルダを `~/.codex/skills/` に配置します。`~/.codex/skills/.system/` は Codex が管理するため、このリポジトリから配置しません。
+既存の Codex 環境を用意したうえで、`~/.codex/skills` を Git 管理下に置きます。`~/.codex/skills/.system/` は Codex が管理するため、このリポジトリでは管理しません。
+
+初回同期は既存の `~/.codex/skills` ディレクトリ内で `git init` してから `pull` します。これにより、Codex が作成した `.system/` を残したまま user skill だけを取得できます。
 
 macOS / Linux:
 
 ```bash
 mkdir -p ~/.codex/skills
-cp -a */ ~/.codex/skills/
+cd ~/.codex/skills
+git init
+git remote add origin https://github.com/tesuheee/codex-config.git
+git pull origin master
+git branch --set-upstream-to=origin/master master
 ```
 
 Windows PowerShell:
 
 ```powershell
 New-Item -ItemType Directory -Force "$env:USERPROFILE\.codex\skills" | Out-Null
-Get-ChildItem -Directory | Where-Object { $_.Name -ne ".system" } | Copy-Item -Destination "$env:USERPROFILE\.codex\skills" -Recurse -Force
+Set-Location "$env:USERPROFILE\.codex\skills"
+git init
+git remote add origin https://github.com/tesuheee/codex-config.git
+git pull origin master
+git branch --set-upstream-to=origin/master master
 ```
 
 ## 日常運用
 
+別端末の変更を取り込む場合:
+
+```bash
+cd ~/.codex/skills
+git pull
+```
+
 変更を反映する場合:
 
 ```bash
+cd ~/.codex/skills
 git status
 git add .
 git commit -m "Update Codex skills"
