@@ -2,7 +2,7 @@
 
 Codex のユーザー定義 skill を管理するリポジトリです。
 
-このリポジトリを正本として扱い、各端末の `~/.codex/skills` はここから取得したコピーとして運用します。Codex 本体の設定、セッション履歴、キャッシュ、システム標準 skill は管理対象外です。
+このリポジトリでは user skill のみを同期対象にします。Codex が配布する標準 skill、設定、認証情報、セッション履歴、キャッシュ、プラグイン状態は管理対象外です。
 
 ## 管理対象
 
@@ -14,68 +14,43 @@ Codex のユーザー定義 skill を管理するリポジトリです。
 
 ## 同期対象外
 
-端末固有の設定、機密情報、実行履歴、キャッシュ、Codex が配布する標準 skill は Git 管理しません。
-
+- `~/.codex/skills/.system/`
 - `~/.codex/config.toml`
 - `~/.codex/auth.json`
+- `~/.codex/plugins/`
 - `~/.codex/sessions/`
 - `~/.codex/log/`
-- `~/.codex/plugins/`
-- `~/.codex/skills/.system/`
+- `~/.codex/cache/`
+- `~/.codex/*.sqlite`
 
 詳細は `.gitignore` を参照してください。
 
 ## セットアップ
 
-新しい端末では、既存の `~/.codex/skills` がある場合は退避してから clone します。
+既存の Codex 環境を用意したうえで、このリポジトリ内の user skill フォルダを `~/.codex/skills/` に配置します。`~/.codex/skills/.system/` は Codex が管理するため、このリポジトリから配置しません。
 
 macOS / Linux:
 
 ```bash
-mv ~/.codex/skills ~/.codex/skills.backup-$(date +%Y%m%d-%H%M%S)
-git clone https://github.com/tesuheee/codex-config.git ~/.codex/skills
+mkdir -p ~/.codex/skills
+cp -a */ ~/.codex/skills/
 ```
 
 Windows PowerShell:
 
 ```powershell
-Rename-Item "$env:USERPROFILE\.codex\skills" "skills.backup-$(Get-Date -Format yyyyMMdd-HHmmss)"
-git clone https://github.com/tesuheee/codex-config.git "$env:USERPROFILE\.codex\skills"
+New-Item -ItemType Directory -Force "$env:USERPROFILE\.codex\skills" | Out-Null
+Get-ChildItem -Directory | Where-Object { $_.Name -ne ".system" } | Copy-Item -Destination "$env:USERPROFILE\.codex\skills" -Recurse -Force
 ```
 
 ## 日常運用
 
-別端末の変更を取り込む場合:
+変更を反映する場合:
 
 ```bash
-cd ~/.codex/skills
-git pull
-```
-
-Windows PowerShell:
-
-```powershell
-Set-Location "$env:USERPROFILE\.codex\skills"
-git pull
-```
-
-この端末で変更を反映する場合:
-
-```bash
-cd ~/.codex/skills
 git status
-git add <変更したファイル>
-git commit -m "変更内容"
-git push
-```
-
-Windows PowerShell:
-
-```powershell
-Set-Location "$env:USERPROFILE\.codex\skills"
-git status
-git add <変更したファイル>
-git commit -m "変更内容"
+git add .
+git commit -m "Update Codex skills"
 git push
 ```
 
